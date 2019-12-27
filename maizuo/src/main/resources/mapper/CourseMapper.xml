@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bdqn.maizuo.dao.CourseMapper">
+  <resultMap id="BaseResultMap" type="com.bdqn.maizuo.entity.Course">
+    <id column="CId" jdbcType="INTEGER" property="cid" />
+    <result column="CNo" jdbcType="VARCHAR" property="cno" />
+    <result column="Cname" jdbcType="VARCHAR" property="cname" />
+    <result column="TNo" jdbcType="INTEGER" property="tno" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    CId, CNo, Cname, TNo
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from course
+    where CId = #{cid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from course
+    where CId = #{cid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="CId" keyProperty="cid" parameterType="com.bdqn.maizuo.entity.Course" useGeneratedKeys="true">
+    insert into course (CNo, Cname, TNo
+      )
+    values (#{cno,jdbcType=VARCHAR}, #{cname,jdbcType=VARCHAR}, #{tno,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="CId" keyProperty="cid" parameterType="com.bdqn.maizuo.entity.Course" useGeneratedKeys="true">
+    insert into course
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cno != null">
+        CNo,
+      </if>
+      <if test="cname != null">
+        Cname,
+      </if>
+      <if test="tno != null">
+        TNo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cno != null">
+        #{cno,jdbcType=VARCHAR},
+      </if>
+      <if test="cname != null">
+        #{cname,jdbcType=VARCHAR},
+      </if>
+      <if test="tno != null">
+        #{tno,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bdqn.maizuo.entity.Course">
+    update course
+    <set>
+      <if test="cno != null">
+        CNo = #{cno,jdbcType=VARCHAR},
+      </if>
+      <if test="cname != null">
+        Cname = #{cname,jdbcType=VARCHAR},
+      </if>
+      <if test="tno != null">
+        TNo = #{tno,jdbcType=INTEGER},
+      </if>
+    </set>
+    where CId = #{cid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bdqn.maizuo.entity.Course">
+    update course
+    set CNo = #{cno,jdbcType=VARCHAR},
+      Cname = #{cname,jdbcType=VARCHAR},
+      TNo = #{tno,jdbcType=INTEGER}
+    where CId = #{cid,jdbcType=INTEGER}
+  </update>
+</mapper>
